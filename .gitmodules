@@ -1,0 +1,3 @@
+[submodule "app/src/main/java/dk/aau/cs/psylog/module_lib"]
+	path = app/src/main/java/dk/aau/cs/psylog/module_lib
+	url = https://github.com/SW807/module-lib.git
