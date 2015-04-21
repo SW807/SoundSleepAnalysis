@@ -3,6 +3,11 @@
 
     <application android:allowBackup="true" android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher" android:theme="@style/AppTheme">
+        <service
+            android:name="dk.aau.cs.psylog.analysis.soundsleepanalysis.PsyLogService"
+            android:label="Service"
+            android:process=":my_process"
+            android:exported="true" />
     </application>
 
 </manifest>
