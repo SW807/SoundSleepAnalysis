@@ -33,11 +33,12 @@ public class SoundSleepAnalysis implements IScheduledTask{
         Uri uri = Uri.parse(DBAccessContract.DBACCESS_CONTENTPROVIDER + "SOUND_amplitudes");
         Cursor cursor = contentResolver.query(uri, new String[]{"_id", "amplitude", "time"}, null, null, null);
         List<SoundData> returnList = new ArrayList<>();
-        if ((getLastPosition() > 5 && cursor.moveToPosition(getLastPosition() - 5)) || cursor.moveToFirst()) {
+        int lastPos = getLastPosition();
+        if ((lastPos > 5 && cursor.moveToPosition(lastPos - 5)) || cursor.moveToFirst()) {
             do {
                 float amplitude = cursor.getFloat(cursor.getColumnIndex("amplitude"));
                 String time = cursor.getString(cursor.getColumnIndex("time"));
-                lastPos = cursor.getInt(cursor.getColumnIndex("_id"));
+                this.lastPos = cursor.getInt(cursor.getColumnIndex("_id"));
                 returnList.add(new SoundData(amplitude, time));
             } while (cursor.moveToNext());
             cursor.close();
