@@ -3,27 +3,24 @@ package dk.aau.cs.psylog.analysis.soundsleepanalysis;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 import android.util.Pair;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 import dk.aau.cs.psylog.module_lib.DBAccessContract;
+import dk.aau.cs.psylog.module_lib.IScheduledTask;
 
-
-/**
- * Created by Praetorian on 24-03-2015.
- */
-public class SoundSleepAnalysis {
+public class SoundSleepAnalysis implements IScheduledTask{
     Uri soundSleepStateAnalysisUri = Uri.parse(DBAccessContract.DBACCESS_CONTENTPROVIDER + "SOUNDSLEEPANALYSIS_state");
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     ContentResolver contentResolver;
@@ -189,6 +186,18 @@ public class SoundSleepAnalysis {
             contentResolver.insert(uri, values);
         }
         cursor.close();
+    }
+
+    @Override
+    public void doTask() {
+        Log.i("AmplSleepAnalysis", "analysen startet");
+        this.Analyse();
+        Log.i("AmplSleepAnalysis", "analysen færdig");
+    }
+
+    @Override
+    public void setParameters(Intent i) {
+
     }
 }
 
