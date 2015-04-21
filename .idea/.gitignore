@@ -1,0 +1,5 @@
+﻿# Exceptions to the .idea directory
+*
+!.name
+!compiler.xml
+!.gitignore
