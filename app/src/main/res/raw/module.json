@@ -1,0 +1,32 @@
+{
+  "name": "soundsleepanalysis",
+  "_version": 1.0,
+  "tables": [
+    {
+      "name": "sleepcalc",
+      "columns": [
+        { "name": "prob", "dataType": "REAL"}
+      ]
+    },
+    {
+      "name": "state",
+      "columns": [
+       { "name": "positionAmpl", "dataType": "INTEGER"},
+       { "name": "timeAmpl", "dataType": "TEXT"},
+       { "name": "probAmpl", "dataType": "REAL"}
+      ]
+    }
+  ],
+  "dependencies": [
+          [
+              {
+                  "name": "sound",
+                  "version": 1.0
+              }
+          ]
+    ],
+    "task" : {
+      "type" : "interval",
+      "value": "5"
+    }
+}
