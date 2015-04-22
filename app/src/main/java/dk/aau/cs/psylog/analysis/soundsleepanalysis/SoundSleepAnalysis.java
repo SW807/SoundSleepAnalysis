@@ -161,8 +161,7 @@ public class SoundSleepAnalysis implements IScheduledTask{
     private int lastPos = -1;
 
     private int getLastPosition() {
-        Uri uri = soundSleepStateAnalysisUri;
-        Cursor cursor = contentResolver.query(uri, new String[]{"positionAmpl"}, null, null, null);
+        Cursor cursor = contentResolver.query(soundSleepStateAnalysisUri, new String[]{"positionAmpl"}, null, null, null);
         if (cursor.moveToFirst()) {
             int res = cursor.getInt(cursor.getColumnIndex("positionAmpl"));
             cursor.close();
@@ -174,17 +173,16 @@ public class SoundSleepAnalysis implements IScheduledTask{
     }
 
     private void updatePosition(Date oldTime, float lastProb) {
-        Uri uri = soundSleepStateAnalysisUri;
         ContentValues values = new ContentValues();
-        values.put("positionAmpl", lastPos);
 
+        values.put("positionAmpl", lastPos);
         values.put("timeAmpl", dateFormat.format(oldTime));
         values.put("probAmpl", lastProb);
-        Cursor cursor = contentResolver.query(uri, new String[]{"_id", "positionAmpl", "timeAmpl"}, null, null, null);
+        Cursor cursor = contentResolver.query(soundSleepStateAnalysisUri, new String[]{"_id", "positionAmpl", "timeAmpl"}, null, null, null);
         if (cursor.getCount() > 0) {
-            contentResolver.update(uri, values, "1=1", null);
+            contentResolver.update(soundSleepStateAnalysisUri, values, "1=1", null);
         } else {
-            contentResolver.insert(uri, values);
+            contentResolver.insert(soundSleepStateAnalysisUri, values);
         }
         cursor.close();
     }
