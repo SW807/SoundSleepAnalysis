@@ -34,6 +34,7 @@ public class SoundSleepAnalysis implements IScheduledTask{
         Cursor cursor = contentResolver.query(uri, new String[]{"_id", "amplitude", "time"}, null, null, null);
         List<SoundData> returnList = new ArrayList<>();
         int lastPos = getLastPosition();
+        //Cuts away data already analysed
         if ((lastPos > 5 && cursor.moveToPosition(lastPos - 5)) || cursor.moveToFirst()) {
             do {
                 float amplitude = cursor.getFloat(cursor.getColumnIndex("amplitude"));
@@ -60,6 +61,7 @@ public class SoundSleepAnalysis implements IScheduledTask{
         List<SoundData> data = loadData();
         List<Pair<String, Float>> resultMap = new ArrayList<>();
 
+        //Creates moving avg of first 5 values
         if (data.size() > 5) {
             for (int i = 0; i < 5; i++)
                 previousDataQueue.add(data.get(i));
@@ -68,6 +70,7 @@ public class SoundSleepAnalysis implements IScheduledTask{
             return;
         }
 
+        //Fetches last wake time from database
         Date oldTime;
         try {
             oldTime = loadTimeString();
